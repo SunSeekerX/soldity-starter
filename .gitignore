@@ -79,7 +79,8 @@ typings/
 .serverless
 
 # truffle
-/build/contracts/*
+# /build/contracts/*
+packages/**/build/
 
 # yarn 2.0+
 .pnp.*
