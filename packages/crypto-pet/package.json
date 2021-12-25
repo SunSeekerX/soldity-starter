@@ -1,0 +1,23 @@
+{
+  "name": "crypto-pet",
+  "version": "1.0.0",
+  "description": "An awesome crypto pet game on blockchain.",
+  "main": "truffle-config.js",
+  "scripts": {
+    "build": "rimraf ./build/contracts/* && truffle compile",
+    "deploy:development": "truffle migrate --network development",
+    "deploy:private": "truffle migrate --network private",
+    "deploy:ropsten": "truffle migrate --network ropsten",
+    "prebuild": "rimraf ./build/contracts/*",
+    "pkg:sort": "npx sort-package-json"
+  },
+  "keywords": [],
+  "private": true,
+  "author": "SunSeekerX sunseekerxi@gmail.com",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.4.1",
+    "rimraf": "^3.0.2"
+  },
+  "packageManager": "yarn@3.1.1"
+}
