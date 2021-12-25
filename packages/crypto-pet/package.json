@@ -4,7 +4,8 @@
   "description": "An awesome crypto pet game on blockchain.",
   "main": "truffle-config.js",
   "scripts": {
-    "build": "rimraf ./build/contracts/* && truffle compile",
+    "clean": "rimraf ./build/contracts/*",
+    "build": "truffle compile",
     "deploy:development": "truffle migrate --network development",
     "deploy:private": "truffle migrate --network private",
     "deploy:ropsten": "truffle migrate --network ropsten",
