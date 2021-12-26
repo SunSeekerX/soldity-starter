@@ -7,12 +7,11 @@ import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 
 // 自定义自己的合约
 contract CPET is ERC20 {
-  // 固定发行量
   constructor(
     string memory name,
     string memory symbol,
     uint256 initialSupply
   ) ERC20(name, symbol) {
-    _mint(msg.sender, initialSupply);
+    _mint(msg.sender, initialSupply * 10**uint256(decimals()));
   }
 }
