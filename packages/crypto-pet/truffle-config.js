@@ -14,7 +14,7 @@ module.exports = {
   },
   compilers: {
     solc: {
-      version: '^0.8.0', // A version or constraint - Ex. "^0.5.0"
+      version: '^0.8.4', // A version or constraint - Ex. "^0.5.0"
       // Can be set to "native" to use a native solc or
       // "pragma" which attempts to autodetect compiler versions
       docker: false, // Use a version obtained through docker

@@ -1,0 +1,18 @@
+{
+  "name": "truffle-starter",
+  "packageManager": "yarn@3.1.1",
+  "scripts": {
+    "clean": "rimraf ./build/contracts/*",
+    "build": "truffle compile",
+    "deploy:development": "truffle migrate --network development",
+    "deploy:private": "truffle migrate --network private",
+    "deploy:ropsten": "truffle migrate --network ropsten",
+    "prebuild": "rimraf ./build/contracts/*",
+    "pkg:sort": "npx sort-package-json"
+  },
+  "devDependencies": {
+    "ganache-cli": "^6.12.2",
+    "rimraf": "^3.0.2",
+    "truffle": "^5.4.26"
+  }
+}

@@ -1,11 +1,36 @@
 # soldity-starter
 
-## 📌 Shark
+solidity 学习项目。
+
+在线文档：[https://doc.yoouu.cn/blockchain/solidity/](https://doc.yoouu.cn/blockchain/solidity/)
+
+## 📌 项目列表
+
+### crypto-pet
+
+加密宠物。
+
+### empty-project
+
+执行 `truffle init` 生成的空样板项目。
+
+### hardhat-starter
+
+跟着官方文档做的项目。详情查看在线文档。
+
+### truffle-starter
+
+跟着官方文档做的项目。详情查看在线文档。
+
+## 📌 项目玩法收集
+
+
+
+### Shark
 
 SSS - 治理代币
 
 - 提案
-- 
 
 SEA - 游戏代币
 
@@ -24,7 +49,7 @@ SEA - 游戏代币
 6. 使用 sea 升级你的鲨鱼
 7. 使用 sea 购买鲨鱼 
 
-## 📌 CryptoPet
+### CryptoPet
 
 加密宠物。
 
