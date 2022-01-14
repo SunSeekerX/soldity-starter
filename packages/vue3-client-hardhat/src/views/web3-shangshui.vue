@@ -80,7 +80,17 @@
     <el-button @click="handleGetTotalSupply" type="primary">GetTotalSupply</el-button>
 
     <!-- 获取 token uri -->
-    <el-button @click="handleGetTokenURI" type="primary">GetTokenURI</el-button>
+    <!-- <el-button @click="handleGetTokenURI" type="primary">GetTokenURI</el-button> -->
+  </el-row>
+
+  <!-- 展示我的 nfts  -->
+  <el-row class="mb-12" :gutter="5">
+    <el-card class="box-card" v-for="(nft, index) of myNftsInfo" :key="index">
+      <el-image style="width: 400px; height: 200px" :src="`https://gateway.pinata.cloud/${nft.image}`"></el-image>
+      <div>名字：{{ nft.name }}</div>
+      <div>描述：{{ nft.description }}</div>
+      <el-row> <el-button @click="handleSendNft(nft.tokenId)" type="primary">发送给别人</el-button></el-row>
+    </el-card>
   </el-row>
 
   <!-- 交易记录 -->
@@ -96,6 +106,7 @@
 </template>
 
 <script setup name="Web3ShangShui">
+import { ElMessageBox, ElMessage } from 'element-plus'
 import detectEthereumProvider from '@metamask/detect-provider'
 import Web3 from 'web3/dist/web3.min.js'
 import { isNil, isEmpty } from 'lodash'
@@ -653,6 +664,8 @@ const transactionList = ref([])
 
 // erc721 token ids
 const ids = ref([])
+// hft info
+const myNftsInfo = ref([])
 
 // Form mint
 const formMint = ref({
@@ -715,12 +728,11 @@ function handleSetContractAbi() {
 }
 // 初始化合约对象
 async function handleInitContractObj() {
-  console.log(erc721ContractAbi.value)
+  // console.log(erc721ContractAbi.value)
   const provider = await detectEthereumProvider()
   const web3 = new Web3(provider)
   erc721ContractObj.value = new web3.eth.Contract(erc721ContractAbi.value, erc721ContractAddress.value)
   $modal.msgSuccess(`创建交互合约对象成功`)
-  console.log('erc721ContractObj', erc721ContractObj.value)
 }
 
 /**
@@ -733,7 +745,7 @@ async function handleMint() {
   const transactionRes = await erc721ContractObj.value.methods
     .safeMint(mintToAddress, mintUri)
     .send({ from: fromAddress })
-  console.log('transactionRes', transactionRes)
+  // console.log('transactionRes', transactionRes)
   if (transactionRes.transactionHash) {
     $modal.msgSuccess(`铸造成功: ${transactionRes.transactionHash}`)
     transactionList.value.push({
@@ -745,36 +757,6 @@ async function handleMint() {
   }
 }
 
-// async function handleGetNft(){
-//   const res =
-// }
-
-async function listTokensOfOwner({ token: tokenAddress, account, abi }) {
-  const token = await ethers.getContractAt(abi, tokenAddress, ethers.provider)
-
-  console.error(await token.name(), 'tokens owned by', account)
-
-  const sentLogs = await token.queryFilter(token.filters.Transfer(account, null))
-  const receivedLogs = await token.queryFilter(token.filters.Transfer(null, account))
-
-  const logs = sentLogs
-    .concat(receivedLogs)
-    .sort((a, b) => a.blockNumber - b.blockNumber || a.transactionIndex - b.TransactionIndex)
-
-  const owned = new Set()
-
-  for (const log of logs) {
-    const { from, to, tokenId } = log.args
-
-    if (addressEqual(to, account)) {
-      owned.add(tokenId.toString())
-    } else if (addressEqual(from, account)) {
-      owned.delete(tokenId.toString())
-    }
-  }
-
-  console.log([...owned].join('\n'))
-}
 async function handleGetMyNfts() {
   const myAccounts = accounts.value[0]
   // const res = await erc721ContractObj.value.methods.balanceOf(myAccounts).call()
@@ -787,6 +769,7 @@ async function handleGetMyNfts() {
       fromBlock: 0,
     })
     .then((events) => {
+      console.log('events>>>',events);
       const myTokenIds = []
       for (const event of events) {
         if (event.type === 'mined') {
@@ -809,9 +792,17 @@ async function getMetaUri() {
   const nftsInfo = []
   for (const id of idsList) {
     const uri = await erc721ContractObj.value.methods.tokenURI(id).call()
-    const nftInfo = await axios.get(`${res}.json`)
-    console.log(nftInfo);
+    const nftInfoRes = await axios.get(`${uri}.json`)
+    if (nftInfoRes.status === 200) {
+      nftsInfo.push(
+        Object.assign({}, nftInfoRes.data, {
+          tokenId: id,
+        })
+      )
+    }
   }
+  $modal.msgSuccess(`成功获取到 ${nftsInfo.length} 个 nft 信息`)
+  myNftsInfo.value = nftsInfo
 }
 
 // 获取总发行
@@ -820,10 +811,38 @@ async function handleGetTotalSupply() {
   console.log(res)
 }
 
-// 获取 token 的 uri
-async function handleGetTokenURI() {
-  const res = await erc721ContractObj.value.methods.tokenURI().call()
-  console.log(res)
+// // 获取 token 的 uri
+// async function handleGetTokenURI() {
+//   const res = await erc721ContractObj.value.methods.tokenURI().call()
+//   console.log(res)
+// }
+
+// 发送 nft 给其他人
+async function handleSendNft(tokenId) {
+  const myAccounts = accounts.value[0]
+  ElMessageBox.prompt('请输入他人地址', {
+    confirmButtonText: '确认',
+    cancelButtonText: '取消',
+    // inputPattern:
+    //   /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+    // inputErrorMessage: 'Invalid Email',
+  })
+    .then(async ({ value }) => {
+      // console.log(value)
+      if ($eth.isValidAddress(value)) {
+        console.log(123123)
+        try {
+          console.log(myAccounts, value, tokenId)
+          const res = await erc721ContractObj.value.methods.transferFrom(myAccounts, value, tokenId).send({ from: myAccounts })
+          console.log(res)
+        } catch (error) {
+          console.log(error)
+        }
+      } else {
+        $modal.msgWarning('地址不合法')
+      }
+    })
+    .catch(() => {})
 }
 </script>
 
