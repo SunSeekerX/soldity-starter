@@ -5,9 +5,12 @@
     "nomiclabs",
     "nprogress",
     "prebuild",
+    "Prefetch",
     "soldity",
+    "unplugin",
     "vite",
     "vitejs",
+    "vuex",
     "yarnpkg"
   ]
 }
