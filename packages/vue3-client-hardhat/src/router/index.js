@@ -30,6 +30,15 @@ const routes = [
           icon: 'Collection',
         },
       },
+      {
+        path: '/web3-shangshui',
+        component: () => import('@/views/web3-shangshui.vue'),
+        name: 'Web3ShangShui',
+        meta: {
+          title: 'Web3ShangShui',
+          icon: 'Collection',
+        },
+      },
     ],
   },
 ]

@@ -21,12 +21,12 @@ async function main() {
 
   // console.log("Greeter deployed to:", greeter.address);
 
-  const Metamask = await hre.ethers.getContractFactory('Metamask')
-  const metamask = await Metamask.deploy()
+  const ShangShui = await hre.ethers.getContractFactory('ShangShui')
+  const shangShui = await ShangShui.deploy()
 
-  await metamask.deployed()
+  await shangShui.deployed()
 
-  console.log('Metamask deployed to:', metamask.address)
+  console.log('Metamask deployed to:', shangShui.address)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
