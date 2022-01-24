@@ -1,10 +1,16 @@
 {
   "name": "hardhat-starter",
   "packageManager": "yarn@3.1.1",
+  "scripts": {
+    "build": "hardhat compile",
+    "node:local": "hardhat node",
+    "deploy": "hardhat run --network ganache scripts/deploy.js",
+    "test": "npx hardhat run --network ganache scripts/index.js"
+  },
   "devDependencies": {
-    "@nomiclabs/hardhat-ethers": "^2.0.3",
-    "@openzeppelin/contracts": "^4.4.1",
-    "ethers": "^5.5.2",
-    "hardhat": "^2.8.0"
+    "@nomiclabs/hardhat-ethers": "^2.0.4",
+    "@openzeppelin/contracts": "^4.4.2",
+    "ethers": "^5.5.3",
+    "hardhat": "^2.8.3"
   }
 }
