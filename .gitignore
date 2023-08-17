@@ -45,3 +45,7 @@ packages/**/cache/
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+pnpm-lock.yaml
+yarn.lock
+package-lock.json
