@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "ganache-cli": "^6.12.2",
-    "rimraf": "^3.0.2",
-    "truffle": "^5.4.30"
+    "rimraf": "^5.0.5",
+    "truffle": "^5.11.5"
   }
 }
