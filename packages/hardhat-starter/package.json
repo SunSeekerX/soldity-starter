@@ -4,7 +4,6 @@
     "build": "hardhat compile",
     "node:local": "hardhat node",
     "deploy:PandoraBox:ganache": "hardhat run --network ganache scripts/PandoraBox.deploy.js",
-    "deploy:PandoraBox:local": "hardhat run --network local scripts/PandoraBox.deploy.js",
     "test:PandoraBox:ganache": "hardhat test test/PandoraBox.test.js --network ganache"
   },
   "devDependencies": {

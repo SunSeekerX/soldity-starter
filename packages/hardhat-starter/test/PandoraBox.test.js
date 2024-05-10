@@ -18,7 +18,7 @@ describe('PandoraBox contract', function () {
 
   before(async function () {
     // 这里填入PandoraBox的部署地址
-    const address = '0x11DAcADf0417f3d0a6398b444643D084Bb8CC441'
+    const address = '0xEC31d148aa7F50e46F696562DBcF6B5497a5D7F0'
     const PandoraBox = await ethers.getContractFactory('PandoraBox')
     ;[owner] = await ethers.getSigners()
     pandoraBox = PandoraBox.attach(address)

@@ -1,5 +1,11 @@
 # hardhat-starter
 
+## 图书馆 📝
+
+GitHub：https://github.com/AmazingAng/WTF-Solidity
+
+官网：https://www.wtf.academy/
+
 ## 多次对同一个状态的合约进行测试
 
 ### 部署脚本
