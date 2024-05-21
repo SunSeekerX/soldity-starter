@@ -5,6 +5,12 @@ require('@nomicfoundation/hardhat-toolbox')
 module.exports = {
   // Here to find out which version is supported: https://hardhat.org/hardhat-runner/docs/reference/solidity-support
   solidity: '0.8.24',
+  paths: {
+    sources: './contracts',
+    tests: './test',
+    cache: './cache',
+    artifacts: './artifacts',
+  },
   networks: {
     arbitrumSepolia: {
       // url: 'https://arbitrum-sepolia.blockpi.network/v1/rpc/public',
