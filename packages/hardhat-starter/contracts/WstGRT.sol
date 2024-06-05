@@ -15,7 +15,7 @@ import '@openzeppelin/contracts/utils/structs/EnumerableSet.sol';
 import { Math } from '@openzeppelin/contracts/utils/math/Math.sol';
 import './interfaces/IGraphStaking.sol';
 import './interfaces/IWstGRT.sol';
-import './interfaces/IWIthdrawalNFT.sol';
+import './interfaces/IWithdrawalNFT.sol';
 import './Delegator.sol';
 
 /**

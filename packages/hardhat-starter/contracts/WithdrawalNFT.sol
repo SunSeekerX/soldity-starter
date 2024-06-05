@@ -6,7 +6,7 @@ import '@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol';
 import './interfaces/IWithdrawalNFT.sol';
 
 /// @notice During the user withdraw process, an NFT will be created and associated with the user's withdraw request. Only the address that holds the NFT will have the ability to claim the withdrawn GRT.
-contract WithdrawalNFT is IWithdrawalNFT, ERC721EFnumerable {
+contract WithdrawalNFT is IWithdrawalNFT, ERC721Enumerable {
   error InvalidWstGRT(address sender);
 
   address public WstGRT;
